@@ -15,7 +15,7 @@ def get_birthdays_per_week(users):
         
         if b_day.weekday() >= today.weekday() and b_day.weekday() <= 6 \
         and b_day.isocalendar()[1] == today.isocalendar()[1]:
-            if not b_day.strftime("%A") in this_week_b_days:
+            if not b_day.weekday() in this_week_b_days:
                 this_week_b_days[b_day.weekday()] = [user["name"]]
             else:
                 this_week_b_days[b_day.weekday()].append(user["name"])
