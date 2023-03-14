@@ -1,4 +1,5 @@
 import datetime
+import calendar
 
 def get_birthdays_per_week(users):
     today = datetime.date.today()
@@ -15,12 +16,14 @@ def get_birthdays_per_week(users):
         if b_day.weekday() >= today.weekday() and b_day.weekday() <= 6 \
         and b_day.isocalendar()[1] == today.isocalendar()[1]:
             if not b_day.strftime("%A") in this_week_b_days:
-                this_week_b_days[b_day.strftime("%A")] = [user["name"]]
+                this_week_b_days[b_day.weekday()] = [user["name"]]
             else:
-                this_week_b_days[b_day.strftime("%A")].append(user["name"])
+                this_week_b_days[b_day.weekday()].append(user["name"])
     
-    for day in this_week_b_days:
-        message = day + ':'
+    b_days = list(this_week_b_days.keys())
+    b_days.sort()
+    for day in b_days:
+        message = calendar.day_name[day] + ':'
         for name in this_week_b_days[day]:
             message += ' ' + name +','
         print(message[:len(message)-1])#printing without last coma.
